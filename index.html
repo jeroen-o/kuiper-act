@@ -475,7 +475,7 @@
 							<h3 class="heading-3"><strong><span style="color: #06a4c7;">Ren&eacute; Kuiper</span></strong></h3>
 							
 							<div class="text-3">
-								<p><span style="font-family: open-sans-semibold;"><strong><a href="https://blinqx.tech/"><span style="color: #074b6e;"><span style="font-size: 16px;"><span style="font-size: 16px;">kuiper act -</span> <span style="font-size: 16px;">a</span>dvies I <span style="color: #06a4c7;">coaching</span> I <span style="color: #f49e00;">training</span></span></span></a></strong></span><br><span style="font-size: 16px;">Buizerdlaan 111</span><br><span style="font-size: 16px;">7905GD Hoogeveen</span><br><br><span style="font-size: 16px;"><strong><a href="tel:0611728068">T: 06</a>-11728068</strong></span><br><span style="text-decoration: underline; font-size: 16px;"><a href="mailto:info@kuiperact.nl">&#105;&#110;&#102;&#111;&#64;&#107;&#117;&#105;&#112;&#101;&#114;&#97;&#99;&#116;&#46;&#110;&#108;</a></span><br><span style="font-size: 16px;"><a href="http://www.kuiperact.nl" target="_blank"><span style="text-decoration: underline;">www.kuiperact.nl</span></a></span></p>
+								<p><span style="font-family: open-sans-semibold;"><strong><a href="https://blinqx.tech/"><span style="color: #074b6e;"><span style="font-size: 16px;"><span style="font-size: 16px;">kuiper act -</span> <span style="font-size: 16px;">a</span>dvies I <span style="color: #06a4c7;">coaching</span> I <span style="color: #f49e00;">training</span></span></span></a></strong></span><br><span style="font-size: 16px;">Buizerdlaan 111</span><br><span style="font-size: 16px;">7905GD Hoogeveen</span><br><br><span style="font-size: 16px;"><strong><a href="tel:0611728068">T: 06</a>-11728068</strong></span><br><span style="text-decoration: underline; font-size: 16px;"><a href="mailto:info@kuiperact.nl" target="_blank" rel="noopener">&#105;&#110;&#102;&#111;&#64;&#107;&#117;&#105;&#112;&#101;&#114;&#97;&#99;&#116;&#46;&#110;&#108;</a></span><br><span style="font-size: 16px;"><a href="http://www.kuiperact.nl" target="_blank"><span style="text-decoration: underline;">www.kuiperact.nl</span></a></span></p>
 							</div>
 						</div>
 					</div>
@@ -556,7 +556,7 @@
 						<div class="box-2">
 							<div class="heading-6">Contact informatie</div>
 							<div class="text-6">
-							<p><a href="tel:0611728068">Tel: 06-11728068</a><br /><a href="mailto:info@kuiperact.nl">E-mail: info@kuiperact.nl</a></p>
+							<p><a href="tel:0611728068">Tel: 06-11728068</a><br /><a href="mailto:info@kuiperact.nl" target="_blank" rel="noopener">E-mail: info@kuiperact.nl</a></p>
 						</div>
 						</div>
 					</div>
@@ -790,8 +790,21 @@ window.addEventListener('load', function(){
         var body = 'Naam: ' + form.field_1.value + '\nE-mailadres: ' + form.field_2.value +
                    '\nFirma: ' + form.field_3.value + '\n\nBericht:\n' + form.field_4.value +
                    (interesse.length ? '\n\nMijn interesse betreft:\n' + interesse.join('\n') : '');
-        window.location.href = 'mailto:info@kuiperact.nl?subject=' + encodeURIComponent('Contactformulier kuiperact.nl') +
-                               '&body=' + encodeURIComponent(body);
+        var url = 'mailto:info@kuiperact.nl?subject=' + encodeURIComponent('Contactformulier kuiperact.nl') +
+                  '&body=' + encodeURIComponent(body);
+        // window.open werkt ook als de pagina in een iframe staat (bijv. Google Sites)
+        var w = null;
+        try { w = window.open(url, '_blank'); } catch (err) {}
+        if (!w) { try { window.top.location.href = url; } catch (err) { window.location.href = url; } }
+        var msg = document.getElementById('form-1-1-msg');
+        if (!msg) {
+            msg = document.createElement('p');
+            msg.id = 'form-1-1-msg';
+            msg.style.cssText = 'margin-top:16px;font-size:14px;color:#074b6e';
+            form.appendChild(msg);
+        }
+        msg.innerHTML = 'Uw e-mailprogramma is geopend met een bericht aan info@kuiperact.nl. Klik daar op verzenden. ' +
+                        'Opent er niets? Mail dan rechtstreeks naar <a href="mailto:info@kuiperact.nl" target="_blank" rel="noopener">info@kuiperact.nl</a>.';
     });
 });
 </script>
