@@ -769,6 +769,12 @@ window.addEventListener('load', function(){
     new Video(); new Sticky(); new Anchor();
     new Menu({selector: '#block-4-4594879 .menu'});
     var form = document.getElementById('form-1-1');
+    form.querySelectorAll('.checkboxes > div').forEach(function(row){
+        var box = row.querySelector('.checkbox'), input = box.querySelector('input'), label = row.querySelector('label');
+        function toggle(){ input.checked = !input.checked; box.classList.toggle('active', input.checked); }
+        box.addEventListener('click', toggle);
+        if (label) label.addEventListener('click', toggle);
+    });
     form.addEventListener('submit', function(e){
         e.preventDefault();
         if (form.field_0.value) return;              // honeypot
